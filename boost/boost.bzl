@@ -86,10 +86,9 @@ def boost_deps():
     )
 
   if "boost" not in native.existing_rules():
-    native.new_http_archive(
+    native.new_git_repository(
       name = "boost",
-      url = "https://dl.bintray.com/boostorg/release/1.66.0/source/boost_1_66_0.tar.gz",
+      remote = "https://github.com/boostorg/boost",
+      tag = "boost-1.66.0",
       build_file = "@com_github_nelhage_boost//:BUILD.boost",
-      strip_prefix = "boost_1_63_0/",
-      sha256 = "bd0df411efd9a585e5a2212275f8762079fed8842264954675a4fddc46cfcf60",
     )
