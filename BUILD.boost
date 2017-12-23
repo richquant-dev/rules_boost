@@ -76,6 +76,16 @@ boost_library(
 )
 
 boost_library(
+    name = "beast",
+    defines = ["BOOST_BEAST_USE_OPENSSL=1"],
+    deps = [
+        ":asio",
+        ":filesystem",
+        ":system",
+    ],
+)
+
+boost_library(
     name = "bind",
     deps = [
         ":get_pointer",

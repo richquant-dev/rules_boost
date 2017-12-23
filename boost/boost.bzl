@@ -18,7 +18,8 @@ srcs_patterns = [
 
 # Building boost results in many warnings for unused values. Downstream users
 # won't be interested, so just disable the warning.
-default_copts = ["-Wno-unused-value"]
+#default_copts = ["-Wno-unused-value"]
+default_copts = []
 
 def srcs_list(library_name):
   return native.glob([p % (library_name,) for p in srcs_patterns])
@@ -87,8 +88,8 @@ def boost_deps():
   if "boost" not in native.existing_rules():
     native.new_http_archive(
       name = "boost",
-      url = "https://dl.bintray.com/boostorg/release/1.63.0/source/boost_1_63_0.tar.gz",
+      url = "https://dl.bintray.com/boostorg/release/1.66.0/source/boost_1_66_0.tar.gz",
       build_file = "@com_github_nelhage_boost//:BUILD.boost",
       strip_prefix = "boost_1_63_0/",
-      sha256 = "fe34a4e119798e10b8cc9e565b3b0284e9fd3977ec8a1b19586ad1dec397088b",
+      sha256 = "bd0df411efd9a585e5a2212275f8762079fed8842264954675a4fddc46cfcf60",
     )
