@@ -16,10 +16,31 @@ srcs_patterns = [
     "libs/%s/src/*.hpp",
 ]
 
+config_setting(
+    name = "linux_x86_64",
+    values = {"cpu": "k8"},
+)
+
+config_setting(
+    name = "mac_x86_64",
+    values = {"cpu": "darwin"},
+)
+
+config_setting(
+    name = "windows_x86_64",
+    values = {"cpu": "x64_windows"},
+)
+
 # Building boost results in many warnings for unused values. Downstream users
 # won't be interested, so just disable the warning.
-#default_copts = ["-Wno-unused-value"]
-default_copts = []
+default_copts = select({
+        ":linux_x86_64": ["-Wno-unused-value"],
+        ":mac_x86_64": ["-Wno-unused-value"],
+        ":windows_x86_64": [
+            "/D_WIN32_WINNT=0x0601",
+            "/wd4819",
+        ]
+})
 
 def srcs_list(library_name):
   return native.glob([p % (library_name,) for p in srcs_patterns])
@@ -90,5 +111,6 @@ def boost_deps():
       name = "boost",
       remote = "https://github.com/boostorg/boost",
       tag = "boost-1.66.0",
+      init_submodules = True,
       build_file = "@com_github_nelhage_boost//:BUILD.boost",
     )

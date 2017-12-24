@@ -77,7 +77,17 @@ boost_library(
 
 boost_library(
     name = "beast",
-    defines = ["BOOST_BEAST_USE_OPENSSL=1"],
+    defines = [
+      "BOOST_ASIO_DISABLE_BOOST_ARRAY=1",
+      "BOOST_ASIO_DISABLE_BOOST_BIND=1",
+      "BOOST_ASIO_DISABLE_BOOST_DATE_TIME=1",
+      "BOOST_ASIO_DISABLE_BOOST_REGEX=1",
+      "BOOST_ASIO_NO_DEPRECATED=1",
+      "BOOST_COROUTINES_NO_DEPRECATION_WARNING=1",
+      "_SCL_SECURE_NO_WARNINGS=1",
+      "_CRT_SECURE_NO_WARNINGS=1",
+      "BOOST_BEAST_USE_OPENSSL=1",
+    ],
     deps = [
         ":asio",
         ":filesystem",
